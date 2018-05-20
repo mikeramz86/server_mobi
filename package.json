@@ -1,0 +1,29 @@
+{
+  "name": "project_dante",
+  "version": "1.0.0",
+  "description": "full stack project",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikeramz86/project-dante.git"
+  },
+  "author": "Michael Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikeramz86/project-dante/issues"
+  },
+  "homepage": "https://github.com/mikeramz86/project-dante#readme"
+}

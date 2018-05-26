@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const passport = require('passport');
 const { Jobs } = require('../models/jobs');
 
 //----GET

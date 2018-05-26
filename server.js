@@ -12,6 +12,8 @@ app.use(express.static('public'));
 
 app.use('/jobs', jobs);
 
+const { DATABASE_URL, PORT } = require('./config');
+
 
 let server;
 

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 //---POST
 
 router.post('/', jsonParser, (req, res) => {
-    const requiredFields = ['job', 'company', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
+    const requiredFields = ['job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
     for (let i=0; i<requiredFields.length; i++) {
       const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -23,7 +23,7 @@ router.post('/', jsonParser, (req, res) => {
         return res.status(400).send(message);
       }
     }
-    const item = Jobs.create(req.body.job, req.body.company,req.body.status,req.body.date,req.body.comp,req.body.pros,req.body.cons,req.body.notes);
+    const item = Jobs.create(req.body.job, req.body.company, req.body.stage, req.body.status, req.body.date, req.body.comp, req.body.pros, req.body.cons, req.body.notes);
     res.status(201).json(item);
   });
 

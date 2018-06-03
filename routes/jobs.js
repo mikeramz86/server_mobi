@@ -3,12 +3,22 @@ const router = express.Router();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const { Jobs } = require('../models/jobs');
+const { Job } = require('../models/jobs');
 
 //----GET
 
+// router.get('/', (req, res) => {
+//   res.json(Job.get());
+// });
+
 router.get('/', (req, res) => {
-  res.json(Jobs.get());
+  try {
+    Job.find({}).then(alljobs => {
+      res.json({ alljobs })
+    })
+  } catch (err) {
+    res.json({ err })
+  }
 });
 
 //---POST
@@ -24,8 +34,21 @@ router.post('/', jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
-  const item = Jobs.create(req.body.job, req.body.company, req.body.stage, req.body.status, req.body.date, req.body.comp, req.body.pros, req.body.cons, req.body.notes);
-  res.status(201).json(item);
+  Job.create({
+    job:req.body.job, 
+    company: req.body.company, 
+    stage: req.body.stage, 
+    satus: req.body.status, 
+    date: req.body.date, 
+    comp: req.body.comp, 
+    pros: req.body.pros, 
+    cons: req.body.cons, 
+    notes: req.body.notes
+  })
+  .then(job => {
+    return res.status(201).json(job.serialize());
+  })
+
 });
 
 //---PUT

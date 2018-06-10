@@ -47,8 +47,9 @@ router.post('/', jsonParser, (req, res) => {
 });
 
 //---PUT
-router.put('/:id', jsonParser, (req, res) => {
-  console.log('is this working');
+router.put('/:jobid', jsonParser, (req, res) => {
+  console.log('this is jobid', req.params.jobid);
+  console.log('is this working here');
   const requiredFields = [ 'job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -68,7 +69,7 @@ router.put('/:id', jsonParser, (req, res) => {
   console.log(`Updating job with id \`${req.params.id}\``);
 
   const updatedItem = {
-    id: req.params.id,
+    id: req.params.jobsid,
     job: req.body.job, 
     company: req.body.company, 
     stage: req.body.stage, 
@@ -80,7 +81,7 @@ router.put('/:id', jsonParser, (req, res) => {
     notes: req.body.notes
   };
 
-  Job.findByIdAndUpdate(req.body.id, updatedItem, { new: true })
+  Job.findByIdAndUpdate(req.params.jobid, updatedItem, { new: true })
   .then(updatedItem => {
     console.log(updatedItem);
     res.status(201).json(updatedItem.serialize())

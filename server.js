@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const morgan = require('morgan');
 
@@ -9,7 +7,6 @@ mongoose.Promise = global.Promise;
 const app = express();
 
 const jobs = require('./routes/jobs');
-console.log('this is config', require('./config'));
 
 // log the http layer
 app.use(morgan('common'));
@@ -18,8 +15,8 @@ app.use(express.static('public'));
 
 app.use('/jobs', jobs);
 
-
 const { DATABASE_URL, PORT } = require('./config');
+// console.log('this is db url', DATABASE_URL);
 
 
 // let server;

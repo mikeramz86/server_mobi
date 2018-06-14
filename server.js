@@ -1,12 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
-
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const cors = require('cors');
+
+
 mongoose.Promise = global.Promise;
 
 const app = express();
 
 const jobs = require('./routes/jobs');
+const users = require('./routes/users')
 
 // log the http layer
 app.use(morgan('common'));
@@ -14,44 +19,9 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.use('/jobs', jobs);
+app.use('/users', users);
 
 const { DATABASE_URL, PORT } = require('./config');
-// console.log('this is db url', DATABASE_URL);
-
-
-// let server;
-
-// function runServer() {
-//   const port = process.env.PORT || 8080;
-//   return new Promise((resolve, reject) => {
-//     server = app.listen(port, () => {
-//       console.log(`Your app is listening on port ${port}`);
-//       resolve(server);
-//     }).on('error', err => {
-//       reject(err)
-//     });
-//   });
-// }
-
-// function closeServer() {
-//   return new Promise((resolve, reject) => {
-//     console.log('Closing server');
-//     server.close(err => {
-//       if (err) {
-//         reject(err);
-//         // so we don't also call `resolve()`
-//         return;
-//       }
-//       resolve();
-//     });
-//   });
-// }
-
-// if (require.main === module) {
-//   runServer().catch(err => console.error(err));
-// };
-
-// module.exports = {app, runServer, closeServer};
 
 let server;
 function runServer(databaseUrl, port = PORT) {

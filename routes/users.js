@@ -191,3 +191,6 @@ router.put('/:id', jsonParser, (req, res) => {
       res.status(500).json({ error: "ughhhhhhhh no no" });
     });
 });
+
+
+module.exports = router;

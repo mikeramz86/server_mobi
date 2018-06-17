@@ -5,6 +5,7 @@ const { User } = require('../models/users');
 const { JWT_SECRET } = require('../config');
 
 const localStrategy = new LocalStrategy({usernameField: 'EmailAddress'}, (EmailAddress, password, callback) => {
+  console.log("Hello Paul");
   let user;
   User.findOne({ EmailAddress })
     .then(_user => {
@@ -48,4 +49,5 @@ const jwtStrategy = new JwtStrategy(
     done(null, payload.user);
   }
 );
+
 module.exports = { localStrategy, jwtStrategy };

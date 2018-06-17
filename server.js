@@ -10,8 +10,11 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
+var path = require('path');
+var logger = require('morgan');
 const jobs = require('./routes/jobs');
 const users = require('./routes/users')
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 // log the http layer
 app.use(morgan('common'));
@@ -20,8 +23,34 @@ app.use(express.static('public'));
 
 app.use('/jobs', jobs);
 app.use('/users', users);
+app.use('/auth', authRouter);
 
 const { DATABASE_URL, PORT } = require('./config');
+
+app.use(cors());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+
+app.use(logger('dev'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+// A protected endpoint which needs a valid JWT to access it
+app.get('/api/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
+});
+
+app.use('*', function (req, res) {
+  res.status(404).json({ message: 'Not Found' });
+});
 
 let server;
 function runServer(databaseUrl, port = PORT) {

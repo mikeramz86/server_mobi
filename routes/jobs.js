@@ -106,3 +106,18 @@ router.delete("/:id", (req, res) => {
 
 
 module.exports = router;
+
+
+/*
+
+1. Need to connect a user(owner)to a job Every job should have a user
+2. Figure out how to save a user to specific job (using different endpoints)  - 
+    -every request should pass a jwt 
+3. For all other endpoints it should go through auth so the user will only get their jobs and not others
+
+
+
+
+
+
+*/

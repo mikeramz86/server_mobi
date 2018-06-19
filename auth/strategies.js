@@ -51,3 +51,5 @@ const jwtStrategy = new JwtStrategy(
 );
 
 module.exports = { localStrategy, jwtStrategy };
+
+//IMPORTANT: figure out why error messages are not working

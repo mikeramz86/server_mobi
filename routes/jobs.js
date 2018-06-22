@@ -5,6 +5,11 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const { Job } = require('../models/jobs');
 
+// const localStrategy = require("./auth/index").localStrategy;
+// const jwtStrategy = require("./auth/index").jwtStrategy;
+// const passport = require("passport");
+// const jwtAuth = passport.authenticate("jwt", { session: false });
+
 //----GET
 
 router.get('/', (req, res) => {
@@ -17,8 +22,19 @@ router.get('/', (req, res) => {
   }
 });
 
-//---POST
+// router.get("/:id", (req, res) => {
+//   Job.findById(req.params.id)
+//   .then(result => {
+//     res.json(result.serialize())
+//   })
+//   .catch(err => {
+//      console.error(err);
+//      res.status(500).json({ error: "ughhhhhhhh no no" });
+//    });
+// })
 
+//---POST
+//add jwtAuth
 router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -114,10 +130,6 @@ module.exports = router;
 2. Figure out how to save a user to specific job (using different endpoints)  - 
     -every request should pass a jwt 
 3. For all other endpoints it should go through auth so the user will only get their jobs and not others
-
-
-
-
 
 
 */

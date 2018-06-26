@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 
+const {CLIENT_ORIGIN} = require('./config');
+
+
 
 mongoose.Promise = global.Promise;
 
@@ -27,7 +30,11 @@ app.use('/auth', authRouter);
 
 const { DATABASE_URL, PORT } = require('./config');
 
-app.use(cors());
+app.use(
+  cors({
+      origin: CLIENT_ORIGIN
+  })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())

@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 //---POST
 //add jwtAuth
 router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
+  const requiredFields = ['userId','job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -54,7 +54,8 @@ router.post('/', jsonParser, (req, res) => {
     comp: req.body.comp, 
     pros: req.body.pros, 
     cons: req.body.cons, 
-    notes: req.body.notes
+    notes: req.body.notes,
+    userId: req.body.userId
   })
   .then(job => {
     return res.status(201).json(job.serialize());

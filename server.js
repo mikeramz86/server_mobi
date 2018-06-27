@@ -19,6 +19,14 @@ const jobs = require('./routes/jobs');
 const users = require('./routes/users')
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
+// app.use(
+//   cors({
+//       origin: CLIENT_ORIGIN
+//   })
+// );
+
+app.use(cors());
+
 // log the http layer
 app.use(morgan('common'));
 
@@ -30,11 +38,7 @@ app.use('/auth', authRouter);
 
 const { DATABASE_URL, PORT } = require('./config');
 
-app.use(
-  cors({
-      origin: CLIENT_ORIGIN
-  })
-);
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())

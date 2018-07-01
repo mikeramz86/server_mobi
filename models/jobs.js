@@ -13,7 +13,7 @@ const jobsSchema = mongoose.Schema({
     pros: {type: String},
     cons: {type: String},
     notes: {type: String},
-    userId: {type: String, required: true}
+    // userId: {type: String, required: true}
 });
 
 
@@ -29,7 +29,7 @@ jobsSchema.methods.serialize = function () {
         pros: this.pros,
         cons: this.cons,
         notes: this.notes,
-        userId: this.userId,
+        // userId: this.userId,
     };
 };
 

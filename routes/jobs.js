@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const { Job } = require('../models/jobs');
 
-// const localStrategy = require("./auth/index").localStrategy;
-// const jwtStrategy = require("./auth/index").jwtStrategy;
-// const passport = require("passport");
-// const jwtAuth = passport.authenticate("jwt", { session: false });
+const localStrategy = require("./auth/index").localStrategy;
+const jwtStrategy = require("./auth/index").jwtStrategy;
+const passport = require("passport");
+const jwtAuth = passport.authenticate("jwt", { session: false });
 
 //----GET
 
@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 
 //---POST
 //add jwtAuth
-router.post('/', jsonParser, (req, res) => {
+router.post('/', jwtAuth, jsonParser, (req, res) => {
   const requiredFields = ['job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   console.log('reqbody',req.body);
   for (let i = 0; i < requiredFields.length; i++) {

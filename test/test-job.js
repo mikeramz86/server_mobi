@@ -28,15 +28,15 @@ const faker = require("faker");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const username = "bbaggins";
-const firstName = "Bilbo";
-const lastName = "bbagins";
+const FirstName = "Bilbo";
+const LastName = "bbagins";
 const { JWT_SECRET } = require("../config");
 const token = jwt.sign(
   {
     user: {
       username,
-      firstName,
-      lastName
+      FirstName,
+      LastName
     }
   },
   JWT_SECRET,
@@ -52,7 +52,7 @@ chai.should();
 
 should = chai.should();
 
-const { Smell } = require("../models");
+const { job } = require("../models");
 const { User } = require("../users");
 const { closeServer, runServer, app } = require("../server");
 const { TEST_DATABASE_URL } = require("../config");
@@ -69,28 +69,28 @@ function tearDownDb() {
   });
 }
 
-function seedSmellData() {
-  console.info("seeding smell data");
+function seedjobData() {
+  console.info("seeding job data");
   const seedData = [];
   for (var i = 1; i <= 10; i++) {
     seedData.push({
       title: faker.lorem.sentence(),
-      description: faker.lorem.sentence(),
+      company: faker.lorem.sentence(),
       category: "body",
-      smellLocation: { lat: 45.535536, lng: -122.620915 }
+      jobLocation: { lat: 45.535536, lng: -122.620915 }
       // user: "124567"
     });
   }
-  return Smell.insertMany(seedData);
+  return job.insertMany(seedData);
 }
 
-describe("smell API resource", function() {
+describe("job API resource", function() {
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
-    return seedSmellData();
+    return seedjobData();
   });
 
   afterEach(function() {
@@ -102,108 +102,121 @@ describe("smell API resource", function() {
   });
 
   describe("GET endpoint", function() {
-    it("should return all existing smells", function() {
+    it("should return all existing jobs", function() {
       let res;
       return chai
         .request(app)
-        .get("/smells")
+        .get("/jobs")
         .set("Authorization", "JWT " + token)
         .then(_res => {
           res = _res;
           res.should.have.status(200);
           res.body.should.have.lengthOf.at.least(1);
-          return Smell.count();
+          return job.count();
         })
         .then(count => {
           res.body.should.have.lengthOf(count);
         });
     });
 
-    it("should return smells with the right fields", function() {
-      let resSmell;
+    it("should return jobs with the right fields", function() {
+      let resjob;
       return chai
         .request(app)
-        .get("/smells")
+        .get("/jobs")
         .set("Authorization", "JWT " + token)
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.have.lengthOf.at.least(1);
 
-          res.body.forEach(function(smell) {
-            smell.should.be.a("object");
-            smell.should.include.keys(
+          res.body.forEach(function(job) {
+            job.should.be.a("object");
+            job.should.include.keys(
               "id",
-              "title",
-              "description",
-              "category",
-              "smellLocation",
-              "publishedAt"
+              "company",
+              "stage",
+              "status",
+              "date",
+              "comp",
+              "pros",
+              "cons",
+              "notes"
+
             );
           });
-          resSmell = res.body[0];
-          return Smell.findById(resSmell.id);
+          resjob = res.body[0];
+          return job.findById(resjob.id);
         })
-        .then(smell => {
-          resSmell.title.should.equal(smell.title);
-          resSmell.description.should.equal(smell.description);
+        .then(job => {
+          resjob.title.should.equal(job.title);
+          resjob.company.should.equal(job.company);
         });
     });
   });
 
   describe("POST endpoint", function() {
-    it("should add a new smell", function() {
-      const newSmell = {
+    it("should add a new job", function() {
+      const newjob = {
         title: faker.lorem.sentence(),
-        description: faker.lorem.sentence(),
+        company: faker.lorem.sentence(),
         category: "body",
-        smellLocation: { lat: 45.535536, lng: -122.620915 }
+        jobLocation: { lat: 45.535536, lng: -122.620915 }
       };
 
       return chai
         .request(app)
-        .post("/smells")
+        .post("/jobs")
         .set("Authorization", "JWT " + token)
-        .send(newSmell)
+        .send(newjob)
         .then(function(res) {
           res.should.have.status(201);
           res.should.be.json;
           res.body.should.be.a("object");
           res.body.should.include.keys(
             "id",
-            "title",
-            "description",
-            "category",
-            "smellLocation",
-            "publishedAt"
+            "job",
+            "company",
+            "stage",
+            "status",
+            "date",
+            "comp",
+            "pros",
+            "cons",
+            "notes"
           );
-          res.body.title.should.equal(newSmell.title);
-          return Smell.findById(res.body.id);
+          res.body.title.should.equal(newjob.title);
+          return job.findById(res.body.id);
         })
-        .then(function(smell) {
-          smell.title.should.equal(newSmell.title);
-          smell.description.should.equal(newSmell.description);
-          smell.smellLocation.lat.should.equal(newSmell.smellLocation.lat);
-          smell.smellLocation.lng.should.equal(newSmell.smellLocation.lng);
+        .then(function(job) {
+          job.job.should.equal(newjob.job);
+          job.company.should.equal(newjob.company);
+          job.stage.should.equal(newjob.stage);
+          job.status.should.equal(newjob.status);
+          job.date.should.equal(newjob.date);
+          job.comp.should.equal(newjob.comp);
+          job.pros.should.equal(newjob.pros);
+          job.cons.should.equal(newjob.cons);
+          job.notes.should.equal(newjob.notes);
         });
     });
   });
 
   describe("DELETE endpoint", function() {
-    it("should delete smell by id", function() {
-      let smell;
+    it("should delete job by id", function() {
+      let job;
 
-      return Smell.findOne()
-        .then(_smell => {
-          smell = _smell;
-          return chai.request(app).delete(`/smells/${smell.id}`);
+      return job.findOne()
+        .then(_job => {
+          job = _job;
+          return chai.request(app).delete(`/jobs/${job.id}`);
         })
         .then(res => {
           res.should.have.status(204);
-          return Smell.findById(smell.id);
+          return job.findById(job.id);
         })
-        .then(_smell => {
-          should.not.exist(_smell);
+        .then(_job => {
+          should.not.exist(_job);
         });
     });
   });
@@ -212,26 +225,38 @@ describe("smell API resource", function() {
     it("should update fields you send over", function() {
       const updateData = {
         title: "wet dogs",
-        description: "happy dogs covered in mud at the park",
-        category: "other"
+        company: "google", 
+        stage: "TPS", 
+        status: "active", 
+        date: "9/1/2018", 
+        comp: "90k", 
+        pros: "wet", 
+        cons: "good", 
+        notes: "la la"
       };
 
-      return Smell.findOne()
-        .then(smell => {
-          updateData.id = smell.id;
+      return job.findOne()
+        .then(job => {
+          updateData.id = job.id;
 
           return chai
             .request(app)
-            .put(`/smells/${smell.id}`)
+            .put(`/jobs/${job.id}`)
             .send(updateData);
         })
         .then(res => {
-          return Smell.findById(updateData.id);
+          return job.findById(updateData.id);
         })
-        .then(smell => {
-          smell.title.should.equal(updateData.title);
-          smell.description.should.equal(updateData.description);
-          smell.category.should.equal(updateData.category);
+        .then(job => {
+          job.job.should.equal(newjob.job);
+          job.company.should.equal(newjob.company);
+          job.stage.should.equal(newjob.stage);
+          job.status.should.equal(newjob.status);
+          job.date.should.equal(newjob.date);
+          job.comp.should.equal(newjob.comp);
+          job.pros.should.equal(newjob.pros);
+          job.cons.should.equal(newjob.cons);
+          job.notes.should.equal(newjob.notes);
         });
     });
   });

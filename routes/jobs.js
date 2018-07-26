@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const { Job } = require('../models/jobs');
 
-const localStrategy = require("./auth/index").localStrategy;
-const jwtStrategy = require("./auth/index").jwtStrategy;
+const localStrategy = require("../auth/index").localStrategy;
+const jwtStrategy = require("../auth/index").jwtStrategy;
 const passport = require("passport");
 const jwtAuth = passport.authenticate("jwt", { session: false });
 
@@ -20,6 +20,20 @@ router.get('/', (req, res) => {
   } catch (err) {
     res.json({ err })
   }
+});
+
+
+//--Get Data of User
+
+router.get("/", jwtAuth, (req, res) => {
+  Job.find({ user: req.user.id })
+    .then(jobs => {
+      res.json(jobs.map(smell => job.serialize()));
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: "something is quite amiss" });
+    });
 });
 
 // router.get("/:id", (req, res) => {
@@ -56,7 +70,7 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
     pros: req.body.pros, 
     cons: req.body.cons, 
     notes: req.body.notes,
-    // userId: req.body.userId
+    userId: req.body.userId
   })
   .then(job => {
     return res.status(201).json(job.serialize());

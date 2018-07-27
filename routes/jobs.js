@@ -80,7 +80,7 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 });
 
 //---PUT--------------------
-router.put('/:id', jsonParser,  (req, res) => {
+router.put('/:id', jwtAuth, jsonParser,   (req, res) => {
   console.log('is this working');
   const requiredFields = [ 'job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -92,6 +92,7 @@ router.put('/:id', jsonParser,  (req, res) => {
     }
   }
   if (req.params.id !== req.body.id) {
+    //figure out to do item later
     const message = (
       `Request path id (${req.params.id}) and request body id `
         `(${req.body.id}) must match`);
@@ -111,6 +112,7 @@ router.put('/:id', jsonParser,  (req, res) => {
     pros: req.body.pros, 
     cons: req.body.cons, 
     notes: req.body.notes,
+    userId: req.user.id
 
   };
 

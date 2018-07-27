@@ -5,7 +5,6 @@ const { User } = require('../models/users');
 const { JWT_SECRET } = require('../config');
 
 const localStrategy = new LocalStrategy({usernameField: 'EmailAddress'}, (EmailAddress, password, callback) => {
-  console.log("Hello Paul");
   let user;
   User.findOne({ EmailAddress })
     .then(_user => {
@@ -53,3 +52,7 @@ const jwtStrategy = new JwtStrategy(
 module.exports = { localStrategy, jwtStrategy };
 
 //IMPORTANT: figure out why error messages are not working
+//Note: 7/26/18
+// Steps we did with Postman
+// 1st: sent email/pass and got a token back
+//2nd: Put token in bearer slot when creating a job: click on auth tab and select "bearer token" add auth token on right side

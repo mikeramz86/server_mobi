@@ -52,6 +52,7 @@ router.get("/", jwtAuth, (req, res) => {
 router.post('/', jwtAuth, jsonParser, (req, res) => {
   const requiredFields = ['job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   console.log('reqbody',req.body);
+  console.log('req user',req.user)
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -70,7 +71,7 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
     pros: req.body.pros, 
     cons: req.body.cons, 
     notes: req.body.notes,
-    userId: req.body.userId
+    userId: req.user.id
   })
   .then(job => {
     return res.status(201).json(job.serialize());
@@ -79,7 +80,7 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 });
 
 //---PUT--------------------
-router.put('/:id', jsonParser, (req, res) => {
+router.put('/:id', jsonParser,  (req, res) => {
   console.log('is this working');
   const requiredFields = [ 'job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   for (let i = 0; i < requiredFields.length; i++) {
@@ -109,7 +110,8 @@ router.put('/:id', jsonParser, (req, res) => {
     comp: req.body.comp, 
     pros: req.body.pros, 
     cons: req.body.cons, 
-    notes: req.body.notes
+    notes: req.body.notes,
+
   };
 
   Job.findByIdAndUpdate(req.body.id, updatedItem, { new: true })

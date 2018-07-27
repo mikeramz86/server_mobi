@@ -12,27 +12,27 @@ const jwtAuth = passport.authenticate("jwt", { session: false });
 
 //----GET
 
-router.get('/', (req, res) => {
-  try {
-    Job.find({}).then(alljobs => {
-      res.json({ alljobs })
-    })
-  } catch (err) {
-    res.json({ err })
-  }
-});
+// router.get('/', (req, res) => {
+//   try {
+//     Job.find({}).then(alljobs => {
+//       res.json({ alljobs })
+//     })
+//   } catch (err) {
+//     res.json({ err })
+//   }
+// });
 
 
 //--Get Data of User
 
 router.get("/", jwtAuth, (req, res) => {
-  Job.find({ user: req.user.id })
+  Job.find({ userId: req.user.id })
     .then(jobs => {
-      res.json(jobs.map(smell => job.serialize()));
+      res.json(jobs.map(job => job.serialize()));
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: "something is quite amiss" });
+      res.status(500).json({ error: "something is quite a miss" });
     });
 });
 

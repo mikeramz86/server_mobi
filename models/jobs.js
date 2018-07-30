@@ -36,3 +36,5 @@ jobsSchema.methods.serialize = function () {
 const Job = mongoose.model('Job', jobsSchema);
 
 module.exports = { Job };
+
+

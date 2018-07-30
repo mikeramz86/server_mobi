@@ -13,19 +13,21 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 
+// app.use(cors());
+
+
 var path = require('path');
 var logger = require('morgan');
 const jobs = require('./routes/jobs');
 const users = require('./routes/users')
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
-// app.use(
-//   cors({
-//       origin: CLIENT_ORIGIN
-//   })
-// );
+app.use(
+  cors({
+      origin: CLIENT_ORIGIN
+  })
+);
 
-app.use(cors());
 
 // log the http layer
 app.use(morgan('common'));

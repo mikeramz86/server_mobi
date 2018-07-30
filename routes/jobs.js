@@ -26,14 +26,18 @@ const jwtAuth = passport.authenticate("jwt", { session: false });
 //--Get Data of User
 
 router.get("/", jwtAuth, (req, res) => {
+  console.log('in the endp');
   Job.find({ userId: req.user.id })
     .then(jobs => {
-      res.json(jobs.map(job => job.serialize()));
+      console.log('is this a job?', jobs);
+
+      res.status(201).json(jobs.map(job => job.serialize()));
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: "something is quite a miss" });
     });
+
 });
 
 // router.get("/:id", (req, res) => {

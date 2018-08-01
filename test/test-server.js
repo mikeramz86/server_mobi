@@ -36,6 +36,8 @@ const expect = chai.expect;
 const { Job } = require('../models/jobs');
 const { closeServer, runServer, app } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
+ 
+const {User} = require('../models/users')
 
 chai.use(chaiHttp);
 
@@ -57,9 +59,17 @@ function tearDownDb() {
 // and then we insert that data into mongo
 function seedJobData() {
   console.info('seeding job data');
+  User.create({
+    FirstName: "test",
+    LastName: "dummy",
+    EmailAddress: "testdummy@test.com",
+    username: "testDum",
+    password: "1234567890",
+  });
   const seedData = [];
   for (let i = 1; i <= 10; i++) {
     seedData.push({
+      
       job: "Software Engineer",
       company: "Google",
       stage: "On Site",
@@ -78,11 +88,13 @@ function seedJobData() {
 describe('job resource', function () {
 
   before(function () {
-    return runServer(TEST_DATABASE_URL);
+    return runServer(TEST_DATABASE_URL, 9000);
   });
 
   beforeEach(function () {
-    return seedJobData();
+    return seedJobData(
+
+    );
   });
 
   afterEach(function () {
@@ -95,10 +107,10 @@ describe('job resource', function () {
 //------------------------------------TEST GET ENDPOINT-----------------------------------------------
   describe('GET endpoint', function () {
 
-    it('should return all existing users', function () {
+    it('should return all existing jobs', function () {
       let res;
       return chai.request(app)
-        .get('/jobs/for_tests')
+        .get('/jobs')
         .then(_res => {
           res = _res;
           expect(res).to.have.status(200);

@@ -26,10 +26,8 @@ const jwtAuth = passport.authenticate("jwt", { session: false });
 //--Get Data of User
 
 router.get("/", jwtAuth, (req, res) => {
-  console.log('in the endp');
   Job.find({ userId: req.user.id })
     .then(jobs => {
-      console.log('is this a job?', jobs);
 
       res.status(201).json(jobs.map(job => job.serialize()));
     })
@@ -55,8 +53,6 @@ router.get("/", jwtAuth, (req, res) => {
 //add jwtAuth
 router.post('/', jwtAuth, jsonParser, (req, res) => {
   const requiredFields = ['job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
-  console.log('reqbody',req.body);
-  console.log('req user',req.user)
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -85,7 +81,6 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 
 //---PUT--------------------
 router.put('/:id', jwtAuth, jsonParser,   (req, res) => {
-  console.log('is this working');
   const requiredFields = [ 'job', 'company', 'stage', 'status', 'date', 'comp', 'pros', 'cons', 'notes'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];

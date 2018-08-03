@@ -259,50 +259,52 @@ describe('job resource', function () {
   // //------------------------------------TEST PUT ENDPOINT-----------------------------------------------
 
 
-//     describe('PUT endpoint', function () {
-//       it('should return job data with right fields updated', function () {
-//         // Strategy: It should update a users' account info
-//         //
-//         let res;
-//         const updateJob = {
-//           job: "Software Engineer",
-//           company: "Google",
-//           stage: "On Site",
-//           status: "Active",
-//           date: "7/1/2018",
-//           comp: "900K",
-//           pros: "Good Job",
-//           cons: "Hard to work up",
-//           notes: "Need to send resume"
-//         };
+    describe('PUT endpoint', function () {
+      it('should return job data with right fields updated', function () {
+        // Strategy: It should update a users' account info
+        //
+        let res;
+        const newJob = {
+          job: "Software Engineer",
+          company: "Google",
+          stage: "On Site",
+          status: "Active",
+          date: "7/1/2018",
+          comp: "900K",
+          pros: "Good Job",
+          cons: "Hard to work up",
+          notes: "Need to send resume"
+        };
         
-//         return Job
-//           .findOne()
-//           .then(function (randomJob) {
-//             updateJob.id = randomJob.id;
-//             return chai.request(app)
-//               .set('Authorization', `Bearer ${token}`)
+        return Job
+          .findOne()
+          .then(function (randomJob) {
+            newJob.id = randomJob.id;
+            return chai.request(app)
 
-//               .put(`/logged_in/for_tests/${randomJob.id}`)
+              .put(`/jobs/${randomJob.id}`)
+              .set('Authorization', `Bearer ${token}`)
 
-//               .send(updateJob);
-//           })
-//           .then(function (res) {
-//             expect(res).to.have.status(204);
-//             return User.findById(updateJob.id);
-//           })
-//           .then(function (job) {
-//             expect(job.job).to.equal(newJob.job);
-//             expect(job.id).should.not.be.null;
-//             expect(job.company).to.equal(newJob.company);
-//             expect(job.state).to.equal(newJob.stage);
-//             expect(job.status).to.equal(newJob.status);
-//             expect(job.date).to.equal(newJob.date);
-//             expect(job.comp).to.equal(newJob.comp);
-//             expect(job.pros).to.equal(newJob.pros);
-//             expect(job.cons).to.equal(newJob.cons);
-//             expect(job.notes).to.equal(newJob.notes);
-//           })
-//       })
-//     })
+
+              .send(newJob);
+          })
+          .then(function (res) {
+            expect(res).to.have.status(201);
+            return Job.findById(newJob.id);
+          })
+          .then(function (job) {
+            console.log(job);
+            expect(job.id).should.not.be.null;
+            expect(job.job).to.equal(newJob.job);
+            expect(job.company).to.equal(newJob.company);
+            expect(job.stage).to.equal(newJob.stage);
+            expect(job.status).to.equal(newJob.status);
+            expect(job.date).to.equal(newJob.date);
+            expect(job.comp).to.equal(newJob.comp);
+            expect(job.pros).to.equal(newJob.pros);
+            expect(job.cons).to.equal(newJob.cons);
+            expect(job.notes).to.equal(newJob.notes);
+          })
+      })
+    })
 });

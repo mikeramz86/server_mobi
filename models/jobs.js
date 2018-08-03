@@ -8,7 +8,7 @@ const jobsSchema = mongoose.Schema({
     company: {type: String, required: true},
     stage: {type: String, required: true},
     status: {type: String,},
-    date: {type: Date},
+    date: {type: String},
     comp: {type: String},
     pros: {type: String},
     cons: {type: String},

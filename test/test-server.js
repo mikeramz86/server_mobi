@@ -230,28 +230,31 @@ describe('job resource', function () {
 
   //   //------------------------------------TEST DELETE ENDPOINT-----------------------------------------------
 
-  //   describe('DELETE endpoint', function () {
-  //     it('delete a bunky User by id', function () {
+    describe('DELETE endpoint', function () {
+      it('delete a job User by id', function () {
 
-  //       let job;
+        let job;
 
-  //       return Job
-  //         .findOne()
-            // .set('Authorization', `Bearer ${token}`)
+        return Job
+          .findOne()
 
-  //         .then(function (_job) {
-  //           job = _job;
-  //           return chai.request(app).delete(`/logged_in/for_tests/${job._id}`);
-  //         })
-  //         .then(function (res) {
-  //           expect(res).to.have.status(204);
-  //           return Job.findById(job.id);
-  //         })
-  //         .then(function (job) {
-  //           expect(job).to.be.null;
-  //         });
-  //     });
-  //   });
+          .then(function (_job) {
+            job = _job;
+            return chai.request(app)
+              .delete(`/jobs/${job._id}`)
+              .set('Authorization', `Bearer ${token}`)
+
+
+          })
+          .then(function (res) {
+            expect(res).to.have.status(204);
+            return Job.findById(job.id);
+          })
+          .then(function (job) {
+            expect(job).to.be.null;
+          });
+      });
+    });
 
   // //------------------------------------TEST PUT ENDPOINT-----------------------------------------------
 

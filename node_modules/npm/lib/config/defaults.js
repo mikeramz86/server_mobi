@@ -190,6 +190,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
     'prefer-offline': false,
     'prefer-online': false,
     prefix: globalPrefix,
+    preid: '',
     production: process.env.NODE_ENV === 'production',
     'progress': !process.env.TRAVIS && !process.env.CI,
     proxy: null,
@@ -220,6 +221,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
     'send-metrics': false,
     shell: osenv.shell(),
     shrinkwrap: true,
+    'sign-git-commit': false,
     'sign-git-tag': false,
     'sso-poll-frequency': 500,
     'sso-type': 'oauth',
@@ -234,6 +236,7 @@ Object.defineProperty(exports, 'defaults', {get: function () {
                      !(process.getuid && process.setuid &&
                        process.getgid && process.setgid) ||
                      process.getuid() !== 0,
+    'update-notifier': true,
     usage: false,
     user: process.platform === 'win32' ? 0 : 'nobody',
     userconfig: path.resolve(home, '.npmrc'),
@@ -327,6 +330,7 @@ exports.types = {
   'prefer-offline': Boolean,
   'prefer-online': Boolean,
   prefix: path,
+  preid: String,
   production: Boolean,
   progress: Boolean,
   proxy: [null, false, url], // allow proxy to be disabled explicitly
@@ -351,6 +355,7 @@ exports.types = {
   'send-metrics': Boolean,
   shell: String,
   shrinkwrap: Boolean,
+  'sign-git-commit': Boolean,
   'sign-git-tag': Boolean,
   'sso-poll-frequency': Number,
   'sso-type': [null, 'oauth', 'saml'],
@@ -360,6 +365,7 @@ exports.types = {
   tmp: path,
   unicode: Boolean,
   'unsafe-perm': Boolean,
+  'update-notifier': Boolean,
   usage: Boolean,
   user: [Number, String],
   userconfig: path,

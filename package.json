@@ -25,7 +25,8 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.4.0",
+    "superagent": "^3.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -7,4 +7,3 @@ deploy:
   app: mighty-peak-72244
   on:
     repo: mikeramz86/project-dante
-osx_image: xcode9.2

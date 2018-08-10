@@ -3,8 +3,7 @@ node_js: "8"
 cache: false
 deploy:
   provider: heroku
-  api_key:
-    secure: YuTLYg1V+Uk09LNbgBk+pnoxNEnqI0cY7WjMA96YHrX9EarBnM9v7T92pY2FZKrSgXzm14M+4UIpTG62EPOhFm8Ga2PliiaF2Gnm2GJdV4eCz0bgzWYdy4CQWX3a3E/gpigDwQCEjO+rtYu+VLooJDaOGJgdS8W1h+3noAyZXvYT62tIdquD0E8WZ3TmVizg8qgvVZ8Skidjr6iHjUxhEQ+w7ktjNnuX/Ebdj8Hua9sCO3vjAr+jBfS/24e+hc7qlgiD0nXnkBvPs2XjFwcNo9XJtcxwLztjyeY2jKlUst1JKk0Zp/EB7J52Z+0VefcwUv/cuPu91Z5Dv6Mjk5GCCUzzzZ40SB+ptYnTzqo8StkRpcYh40dXeX+94uHsaLwTUsvNMe3QILG0c5DF+tIXfTScgfW+acMPfOnIunBvRA5vAE9nzAMSxucykLPgFDt+hXYOITiuGwr2A+3Ah/o2TqIorBfXr5vYP+HjB/WEHbrvMTVxU4T2PO78z3I8qo0yY6mScFgcIdNmsor8a+fYTlvQIiHsIYG7xTmcl/dIeJ4N19CHOAiHyvk9GGk07hk6SVpbtas9flrCWCw1ompg08/p2M6EEJTerVHR4zQ7EWOTCogxtUiSI8of+bJtY9OK9s7kAHV4bY1stM2Vgd7DjkoH4BFn8Uym2L4q7y4XLO4=
+  api_key: 83de6060-00d2-4b93-b26e-d51874bdaa2f
   app: mighty-peak-72244
   on:
     repo: mikeramz86/project-dante

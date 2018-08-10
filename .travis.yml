@@ -3,7 +3,7 @@ node_js: "8"
 cache: false
 deploy:
   provider: heroku
-  api_key: 83de6060-00d2-4b93-b26e-d51874bdaa2f
+  api_key: f4050538-1564-46e2-b3a0-503243860a3f
   app: mighty-peak-72244
   on:
     repo: mikeramz86/project-dante

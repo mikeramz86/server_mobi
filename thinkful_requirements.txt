@@ -1,41 +1,10 @@
-This lesson takes you through building your final capstone for this course: a portfolio-ready fullstack JavaScript
- app that will help convince recruiters they should hire you for your first job as a professional developer.
+Creating OAuth Authorization... done
+Client:      <none>
+ID:          d719c6a1-fb09-4918-a238-d4dbc611ed53
+Description: Long-lived user authorization
+Scope:       global
+Token:       d0603e98-bf10-4e4c-97c9-e317ab27107a
+Michaels-MacBook-Pro:Project_Dante michaelramirez$
 
-Over the course of this lesson, you'll:
-
-    - decide on an app idea
-    - generate a long list of potential user stories to implement
-    - descope, define, and create a screen inventory for a minimally viable product (MVP)
-    - design your MVP with HTML wireframes and user flows
-    - implement your MVP by transforming your HTML wireframes into a mobile-first, static version of your 
-        React app, using mock data that your server will eventually supply. This will be your first deployment.
-    - get feedback and iterate on your mvp
-    - implement, test, and deploy your server-side API as a separate app (with cross-origin resource sharing enabled)
-    - Complete a full version of your client. At this stage, you'll replace mock API data with real data 
-        from the API you created in the previous step and implement any remaining client-side JavaScript 
-        functionality and styling your app using progressive enhancement.
-    - write tests for the client app
-    - conduct a final round of user feedback and iteration
-    - conduct final code cleanup and documentation, creating a comprehensive README file
-
-The final version of your app will need to meet the following requirements:
-
-    - Do something interesting or useful
-    - Be a fullstack app using HTML, CSS, React, Node, Express, and Mongoose (unless you, your mentor, and 
-        your program manager agree to an alternative stack).
-    - The client and API should be deployed separately and stored in separate GitHub repos. 
-        We'll walk you through this setup later.
-    - Both client- and server-side code should be tested, and you should use TravisCI for continuous 
-        integration and deployment.
-    - Your app should be responsive, and should work just as well on mobile devices as it does on desktop devices.
-    - All code should be high quality, error free, commented as necessary, and clean. When a hiring 
-        manager looks at your code, you want them to think "This person has great coding habits".
-    - The styling on your client should be polished. That means choosing fonts and colors that make 
-        sense, correctly sizing different components, and ensuring that it looks great on both mobile 
-        and desktop devices.
-    - You should have a comprehensive README files for both GitHub repos (we'll discuss this step 
-        in detail at the end of this lesson).
-    - Your app should have a landing page that explains what the app does and how to get 
-        started, in addition to pages required to deliver the main functionality.
-    - You must deploy a live, publicly-accessible version of your app.
-    - You should set up a demo user account and indicate on the landing page how to use it.
+Michaels-MacBook-Pro:Project_Dante michaelramirez$ heroku auth:token
+83de6060-00d2-4b93-b26e-d51874bdaa2f

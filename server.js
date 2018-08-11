@@ -8,24 +8,10 @@ const passport = require('passport');
 const cors = require('cors');
 
 const { CLIENT_ORIGIN } = require('./config');
+const { DATABASE_URL, PORT } = require('./config');
 
 
 
-
-
-
-
-
-
-
-app.use(cors());
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Content-Type,Authorization")
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE")
-  next()
-})
 
 
 
@@ -35,23 +21,31 @@ const jobs = require('./routes/jobs');
 const users = require('./routes/users')
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
+app.use(morgan('common'));
+
+
+
+
 app.use(
   cors({
       origin: CLIENT_ORIGIN
   })
 );
 
-
-// log the http layer
-app.use(morgan('common'));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Content-Type,Authorization")
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE")
+  next()
+})
 
 app.use(express.static('public'));
-
 app.use('/jobs', jobs);
 app.use('/users', users);
 app.use('/auth', authRouter);
 
-const { DATABASE_URL, PORT } = require('./config');
+
+
 
 
 

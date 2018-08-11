@@ -1,4 +1,6 @@
 const express = require('express');
+const app = express();
+
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,14 +9,16 @@ const cors = require('cors');
 
 const { CLIENT_ORIGIN } = require('./config');
 
-const app = express();
 
-app.use(
-  cors({
-      origin: CLIENT_ORIGIN
-  })
-);
 
+
+
+
+
+
+
+
+app.use(cors());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -23,12 +27,6 @@ app.use(function(req, res, next) {
   next()
 })
 
-
-mongoose.Promise = global.Promise;
-
-
-
-// app.use(cors());
 
 
 var path = require('path');

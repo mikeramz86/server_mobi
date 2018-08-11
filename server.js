@@ -7,6 +7,8 @@ const cors = require('cors');
 
 const { CLIENT_ORIGIN } = require('./config');
 
+const app = express();
+
 app.use(
   cors({
       origin: CLIENT_ORIGIN
@@ -24,7 +26,7 @@ app.use(function(req, res, next) {
 
 mongoose.Promise = global.Promise;
 
-const app = express();
+
 
 // app.use(cors());
 
